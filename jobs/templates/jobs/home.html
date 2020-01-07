@@ -19,13 +19,13 @@
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home' %}">Nick Walter</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Ganeshkumar Patil</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="http://twitter.com/nickchuckwalter">Twitter</a>
+          <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357">LinkedIn</a>
           <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a>
           <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
         </div>
@@ -37,14 +37,17 @@
 
     <section class="jumbotron text-center">
       <div class="container">
-        <h1 class="jumbotron-heading">Hi, I'm Nick.</h1>
-        <p class="lead text-muted">Hey, my name is Nick Walter and I love to make Django websites. It's the thrill of handling the requests that the people want!</p>
+        <h1 class="jumbotron-heading">Hi, I'm Ganesh.</h1>
+        <p class="lead text-muted">Hey, I am python developer. I love working on Django, machine learning and Embedded system test automation.</p>
         <p>
-          <a href="mailto:nick@zappycode.com" class="btn btn-primary my-2">Email Me</a>
+          <a href="mailto:ganeshkumar.patil@gmail.com" class="btn btn-primary my-2">Email Me</a>
         </p>
-        <img src="{% static 'nick.jpg' %}" height="300" />
+        <img src="{% static 'ganesh.jpg' %}" height="300" />
       </div>
     </section>
+
+    <h2 class="text-center">Projects worked on</h2>
+    <br />
 
     <div class="album py-5 bg-light">
       <div class="container">
@@ -52,14 +55,14 @@
         <div class="row">
 
           {% for job in jobs.all %}
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <img class="card-img-top" src="{{ job.image.url }}" />
-              <div class="card-body">
-                <p class="card-text">{{ job.summary }}</p>
+            <div class="col-md-6">
+              <div class="card mb-4 box-shadow">
+                <img class="card-img-top" height=150 src="{{ job.image.url }}" />
+                <div class="card-body">
+                  <p class="card-text">{{ job.summary }}</p>
+                </div>
               </div>
             </div>
-          </div>
           {% endfor %}
 
 
