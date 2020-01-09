@@ -19,15 +19,16 @@
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home' %}">Nick Walter</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Ganeshkumar Patil</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="http://twitter.com/nickchuckwalter">Twitter</a>
+          <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357">LinkedIn</a>
+          <a class="nav-item nav-link" href="https://github.com/ganeshkp">GitHub</a>
           <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a>
-          <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
+          <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
         </div>
       </div>
     </nav>
@@ -44,7 +45,7 @@
     <img class="img-fluid" src="{{ blog.image.url }}"  />
     <br />
     <br />
-    <p>{{ blog.body }}</p>
+    <p>{{ blog.body | safe }}</p>
 
 
   </div>
@@ -53,7 +54,7 @@
 
   <footer class="text-muted">
     <div class="container text-center">
-      <p>© Nick Walter {% now "Y" %}</p>
+      <p>© Ganeshkumar Patil {% now "Y" %}</p>
       </div>
   </footer>
 
