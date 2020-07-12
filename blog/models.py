@@ -1,5 +1,5 @@
 from django.db import models
-from tinymce import HTMLField
+from tinymce.models import HTMLField
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
