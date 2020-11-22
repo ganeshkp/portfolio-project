@@ -1,5 +1,4 @@
 from django.db import models
-from tinymce.models import HTMLField
 from ckeditor.fields import RichTextField
 
 class Job(models.Model):
