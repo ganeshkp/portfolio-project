@@ -1,5 +1,5 @@
 Django==2.0.2
 gunicorn==19.7.1
-Pillow==8.0.1
+Pillow==9.0.1
 pytz==2018.3
 django-ckeditor==6.0.0
