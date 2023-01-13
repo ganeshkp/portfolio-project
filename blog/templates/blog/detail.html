@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  {% load staticfiles %}
+  {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -42,7 +42,7 @@
 
     <h1 class="text-center pt-3">{{ blog.title }}</h1>
     <p class="text-center">{{ blog.pub_date }}</p>
-    <img class="img-fluid" src="{{ blog.image.url }}"  />
+    <!-- <img class="img-fluid" src="{{ blog.image.url }}"  /> -->
     <br />
     <br />
     <p>{{ blog.body | safe }}</p>

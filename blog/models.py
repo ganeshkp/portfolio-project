@@ -1,11 +1,12 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
-    body=RichTextField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/')
+    body = RichTextField(blank=True, null=True)
+    # image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.title
