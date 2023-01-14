@@ -28,7 +28,7 @@
           <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357">LinkedIn</a>
           <a class="nav-item nav-link" href="https://github.com/ganeshkp">GitHub</a>
           <!-- <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a> -->
-          <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
+          <a class="nav-item nav-link active" href="{% url 'blog_list' %}">Blog</a>
         </div>
       </div>
     </nav>
@@ -43,8 +43,8 @@
     <h2>Latest Posts</h2>
     <hr />
 
-    {% for blog in blogs.all %}
-    <a href="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
+    {% for blog in object_list.all %}
+    <a href="{% url 'blog_detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
     {{ blog.pub_date_pretty }}
     <br />
     <!-- <img class="img-fluid" src="{{ blog.image.url }}" height=200 width=200 /> -->

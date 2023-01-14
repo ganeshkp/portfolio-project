@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,3 @@ except ImportError:
 # SECURE_HSTS_SECONDS=5
 # SECURE_HSTS_INCLUDE_SUBDOMAINS=True
 # SECURE_HSTS_PRELOAD=True
-
-
-
