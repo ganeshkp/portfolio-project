@@ -8,7 +8,10 @@
   <meta name="author" content="">
 
 
-  <title>Ganesh's Blog</title>
+  {% if title %}
+    <title>{{ title }}</title>
+  {% endif %}
+  <!-- <title>Ganesh's Blog</title> -->
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">

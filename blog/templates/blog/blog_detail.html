@@ -7,8 +7,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  {% if title %}
+  <title>{{ title }}</title>
+  {% endif %}
 
-  <title>{{ blog.title }}</title>
+  <!-- <title>{{ blog.title }}</title> -->
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -40,12 +43,12 @@
 
 
 
-    <h1 class="text-center pt-3">{{ blog.title }}</h1>
-    <p class="text-center">{{ blog.pub_date }}</p>
+    <h1 class="text-center pt-3">{{ object.title }}</h1>
+    <p class="text-center">{{ object.pub_date }}</p>
     <!-- <img class="img-fluid" src="{{ blog.image.url }}"  /> -->
     <br />
     <br />
-    <p>{{ blog.body | safe }}</p>
+    <p>{{ object.body | safe }}</p>
 
 
   </div>
