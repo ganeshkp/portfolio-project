@@ -1,4 +1,5 @@
 from django import forms
+# from ckeditor.widgets import CKEditorWidget
 
 from .models import Blog
 
@@ -10,6 +11,7 @@ class DateInput(forms.DateInput):
 
 
 class BlogModelForm(forms.ModelForm):
+    # body = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model = Blog
@@ -20,5 +22,6 @@ class BlogModelForm(forms.ModelForm):
         #     'body'
         # ]
         widgets = {
-            'pub_date': DateInput()
+            'pub_date': DateInput(),
+            # 'body': CKEditorWidget()
         }

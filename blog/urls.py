@@ -10,7 +10,9 @@ urlpatterns = [
     path('blog<int:id>/', views.BlogRedirectView.as_view(),
          name='blog_detail_redirect'),
     path('<int:id>/', views.BlogDetailView.as_view(), name='blog_detail'),
-    path('create/', views.MyBlogCreateView.as_view(), name='blog_create'),
+    # path('create/', views.MyBlogCreateView.as_view(), name='blog_create'),
+    # path('create/', views.MyBlogBaseFormView.as_view(), name='blog_create'),
+    path('create/', views.MyBlogBaseModelFormView.as_view(), name='blog_create'),
 
 
 ]

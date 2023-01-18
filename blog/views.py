@@ -17,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import BlogModelForm
 from .models import Blog
 from .mixins import TemplateTitleMixin, QuerysetModelMixin, MyLoginRequiredMixin
+from django.views.generic.edit import FormMixin, ModelFormMixin
 
 
 #********************************Function based views**********************************#
@@ -153,14 +154,80 @@ class BlogDetailView(TemplateTitleMixin, DetailView):
         return self.get_object().title
 
 
-class MyBlogCreateView(CreateView):
+class MyBlogCreateView(LoginRequiredMixin, CreateView):
     form_class = BlogModelForm
     template_name = 'forms.html'
     # success_url = '/blogs'
 
+    def get_initial(self):
+        return {}
+
     def form_valid(self, form):
-        print(form.cleaned_data)
+        obj = form.save(commit=False)
+        if self.request.user.is_authenticated:
+            obj.user = self.request.user
+        obj.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse("blog_list")
+    # This method can be used if form go invalid
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+
+class MyBlogBaseFormView(LoginRequiredMixin, FormMixin, View):
+    form_class = BlogModelForm
+    template_name = 'forms.html'
+    # success_url = '/blogs'
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()  # This can be used since we are using FormMixin
+        return render(request, self.template_name, {"form": form})
+
+    def get_initial(self):
+        return {"title": "Hello world"}
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        if self.request.user.is_authenticated:
+            obj.user = self.request.user
+        obj.save()
+        return super().form_valid(form)
+
+    # This method can be used if form go invalid
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+
+class MyBlogBaseModelFormView(LoginRequiredMixin, ModelFormMixin, View):
+    form_class = BlogModelForm
+    template_name = 'forms.html'
+    # success_url = '/blogs'
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()  # This can be used since we are using FormMixin
+        return render(request, self.template_name, {"form": form})
+
+    def get_initial(self):
+        return {"title": "Hello world"}
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    # This method can be used if form go invalid
+    def form_invalid(self, form):
+        return super().form_invalid(form)
