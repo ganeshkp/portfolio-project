@@ -1,12 +1,22 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View, ListView, DetailView
+from django.urls import reverse
+
+from django.views.generic import (
+    View,
+    ListView,
+    DetailView,
+    RedirectView,
+    CreateView)
+
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import render
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .forms import BlogModelForm
 from .models import Blog
-from .mixins import TemplateTitleMixin, QuerysetModelMixin
+from .mixins import TemplateTitleMixin, QuerysetModelMixin, MyLoginRequiredMixin
 
 
 #********************************Function based views**********************************#
@@ -105,6 +115,19 @@ class BlogListView(TemplateTitleMixin, QuerysetModelMixin, ListView):
 #         return render(request, template, context)
 
 
+# Using RedirectView
+class BlogRedirectView(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'blog_detail'
+
+    # def get_redirect_url(self, *args, **kwargs):
+    #     # blog = get_object_or_404(Blog, pk=kwargs['id'])
+    #     return super().get_redirect_url(*args, **kwargs)
+
+
+# class BlogDetailView(TemplateTitleMixin, MyLoginRequiredMixin, DetailView):
+# class BlogDetailView(TemplateTitleMixin, LoginRequiredMixin, DetailView):
 class BlogDetailView(TemplateTitleMixin, DetailView):
     model = Blog
     # default template name is 'blog/blog_detail.html' it file name is <appname>/<modelname>_detail.html
@@ -128,3 +151,16 @@ class BlogDetailView(TemplateTitleMixin, DetailView):
     # This is method overiding from mixin to set value of title
     def get_title(self):
         return self.get_object().title
+
+
+class MyBlogCreateView(CreateView):
+    form_class = BlogModelForm
+    template_name = 'forms.html'
+    # success_url = '/blogs'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("blog_list")

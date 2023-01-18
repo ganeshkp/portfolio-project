@@ -1,6 +1,9 @@
-
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Title mixin
+
+
 class TemplateTitleMixin(object):
     """
     Multiple object mixin
@@ -43,3 +46,11 @@ class QuerysetModelMixin():
             "object_list": self.get_queryset()
         }
         return context
+
+
+class MyLoginRequiredMixin():
+    @method_decorator(login_required)
+    # @method_decorator(cache_page)
+    @method_decorator(permission_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
