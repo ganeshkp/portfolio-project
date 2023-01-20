@@ -1,48 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-  {% load static %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+{% extends 'base.html' %}
+{% load static %}
 
-  {% if title %}
-  <title>{{ title }}</title>
-  {% endif %}
+{% block content %}
 
-  <!-- <title>{{ blog.title }}</title> -->
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-</head>
-
-<body>
-
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home' %}">Ganeshkumar Patil</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357">LinkedIn</a>
-          <a class="nav-item nav-link" href="https://github.com/ganeshkp">GitHub</a>
-          <!-- <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a> -->
-          <a class="nav-item nav-link" href="{% url 'blog_list' %}">Blogs</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <main role="main">
-    <div class="container">
-
-
-
-
+<main role="main">
+  <div class="container">
     <h1 class="text-center pt-3">{{ object.title }}</h1>
     <p class="text-center">{{ object.pub_date }}</p>
     <!-- <img class="img-fluid" src="{{ blog.image.url }}"  /> -->
@@ -50,22 +12,16 @@
     <br />
     <p>{{ object.body | safe }}</p>
 
+    {% if form %}
+
+      {% include 'forms.html' with my_form=form %}
+
+    {% endif %}
+
 
   </div>
+</main>
 
-  </main>
+{% endblock %}
 
-  <footer class="text-muted">
-    <div class="container text-center">
-      <p>© Ganeshkumar Patil {% now "Y" %}</p>
-      </div>
-  </footer>
 
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>

@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from django.views.generic import (
     View,
     ListView,
     DetailView,
     RedirectView,
-    CreateView)
+    CreateView,
+    UpdateView,
+    DeleteView)
 
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.detail import SingleObjectMixin
@@ -87,6 +89,9 @@ class BlogListView(TemplateTitleMixin, QuerysetModelMixin, ListView):
         # do something here and then return
         return super(BlogListView, self).get(request, *args, **kwargs)
 
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
     # def get_queryset(self):
     #     # If no queryset variable mentioned, then this will be called
     #     # Do SOMETHING TO FILTER QUERYSET
@@ -129,7 +134,7 @@ class BlogRedirectView(RedirectView):
 
 # class BlogDetailView(TemplateTitleMixin, MyLoginRequiredMixin, DetailView):
 # class BlogDetailView(TemplateTitleMixin, LoginRequiredMixin, DetailView):
-class BlogDetailView(TemplateTitleMixin, DetailView):
+class BlogDetailView(LoginRequiredMixin, TemplateTitleMixin, DetailView):
     model = Blog
     # default template name is 'blog/blog_detail.html' it file name is <appname>/<modelname>_detail.html
     # template_name = 'blog/detail.html'
@@ -152,6 +157,9 @@ class BlogDetailView(TemplateTitleMixin, DetailView):
     # This is method overiding from mixin to set value of title
     def get_title(self):
         return self.get_object().title
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
 
 
 class MyBlogCreateView(LoginRequiredMixin, CreateView):
@@ -212,7 +220,7 @@ class MyBlogBaseModelFormView(LoginRequiredMixin, ModelFormMixin, View):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form()  # This can be used since we are using FormMixin
-        return render(request, self.template_name, {"form": form})
+        return render(request, self.template_name, {"my_form": form})
 
     def get_initial(self):
         return {"title": "Hello world"}
@@ -231,3 +239,26 @@ class MyBlogBaseModelFormView(LoginRequiredMixin, ModelFormMixin, View):
     # This method can be used if form go invalid
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
+    model = Blog
+    form_class = BlogModelForm
+    # login_url = '/login/'
+    # redirect_field_name = 'forms.html'
+    template_name = "blog/blog_detail.html"
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
+    def get_success_url(self):
+        # return f"/blogs/{self.object.id}/"
+        # return self.object.get_absolute_url() # This is not working somehow
+        return reverse('blog_detail', kwargs={'id': self.object.id})
+
+
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
+    model = Blog
+    success_url = reverse_lazy('blog_list')
+    # by default we need to create template blog/blog_confirm_delete.html if below line is not mentioned
+    template_name = "forms-delete.html"
