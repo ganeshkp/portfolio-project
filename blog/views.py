@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
 
 from django.views.generic import (
     View,
@@ -16,7 +17,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import BlogModelForm
+from .forms import BlogModelForm, TestForm
 from .models import Blog
 from .mixins import TemplateTitleMixin, QuerysetModelMixin, MyLoginRequiredMixin
 from django.views.generic.edit import FormMixin, ModelFormMixin
@@ -262,3 +263,28 @@ class BlogDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('blog_list')
     # by default we need to create template blog/blog_confirm_delete.html if below line is not mentioned
     template_name = "forms-delete.html"
+
+
+# https://docs.djangoproject.com/en/4.1/topics/forms/#building-a-form-in-django
+def test_form_view(request):
+    # initial_dict = {
+    #     "subject": "Hi There"
+    # }
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        # form = TestForm(request.POST or None, initial=initial_dict)
+        form = TestForm(data=request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            print(form.cleaned_data)
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/blogs/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = TestForm(user=request.user)
+    return render(request, "forms.html", {"my_form": form})

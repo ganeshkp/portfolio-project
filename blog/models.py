@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.conf import settings
+from datetime import timedelta, datetime
 
 User = settings.AUTH_USER_MODEL
 
@@ -9,6 +10,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, blank=True, null=True,
                              on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
+    created_datetime = models.DateTimeField(default=datetime.now())
     pub_date = models.DateTimeField()
     body = RichTextField(blank=True, null=True)
     # image = models.ImageField(upload_to='images/')
