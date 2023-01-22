@@ -12,7 +12,7 @@ urlpatterns = [
     path('<int:id>/', views.BlogDetailView.as_view(), name='blog_detail'),
     # path('create/', views.MyBlogCreateView.as_view(), name='blog_create'),
     # path('create/', views.MyBlogBaseFormView.as_view(), name='blog_create'),
-    path('create/', views.MyBlogBaseModelFormView.as_view(), name='blog_create'),
+    path('create/', views.MyBlogCreateView.as_view(), name='blog_create'),
     path('<int:pk>/update/', views.BlogUpdateView.as_view(), name='blog_update'),
     path('<int:pk>/delete/', views.BlogDeleteView.as_view(), name='blog_delete'),
 

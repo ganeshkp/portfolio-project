@@ -221,7 +221,7 @@ class MyBlogBaseModelFormView(LoginRequiredMixin, ModelFormMixin, View):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form()  # This can be used since we are using FormMixin
-        return render(request, self.template_name, {"my_form": form})
+        return render(request, self.template_name, {"form": form})
 
     def get_initial(self):
         return {"title": "Hello world"}
@@ -287,4 +287,4 @@ def test_form_view(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TestForm(user=request.user)
-    return render(request, "forms.html", {"my_form": form})
+    return render(request, "forms.html", {"form": form})

@@ -10,7 +10,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, blank=True, null=True,
                              on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
-    created_datetime = models.DateTimeField(default=datetime.now())
+    created_datetime = models.DateTimeField(null=True)
     pub_date = models.DateTimeField()
     body = RichTextField(blank=True, null=True)
     # image = models.ImageField(upload_to='images/')

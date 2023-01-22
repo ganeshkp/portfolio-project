@@ -29,7 +29,29 @@ class BlogModelForm(forms.ModelForm):
             # 'body': CKEditorWidget()
         }
 
+    def clean_title(self, *args, **kwargs):
+        title = self.cleaned_data.get("title")
+        return title
 
+    def clean(self, *args, **kwargs):
+        cleaned_data = super().clean()
+        title = cleaned_data.get("title")
+        body = cleaned_data.get("title")
+
+        if "shit" in title:
+            raise forms.ValidationError("mean words are not allowed")
+
+    def save(self, commit=True, *args, **kwargs):
+        obj = super(BlogModelForm, self).save(commit=False, *args, **kwargs)
+
+        # PERFORM SOMETHING HERE
+        obj.title = "CHANGEED TITLE"
+        if commit == True:
+            obj.save()
+        return obj
+
+
+# --------------------------------------------------------------------
 # ("db-value", "display-value")
 SNACK_CHOICES = [('1', 'Chips'), ('2', 'Bread')]
 BREAKFAST_CHOICES = [('1', 'Sandwitch'), ('2', 'Pasta')]
