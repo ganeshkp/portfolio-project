@@ -9,7 +9,7 @@ User = settings.AUTH_USER_MODEL
 class Blog(models.Model):
     user = models.ForeignKey(User, blank=True, null=True,
                              on_delete=models.SET_NULL)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     created_datetime = models.DateTimeField(null=True)
     pub_date = models.DateTimeField()
     body = RichTextField(blank=True, null=True)

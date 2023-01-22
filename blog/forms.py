@@ -29,6 +29,42 @@ class BlogModelForm(forms.ModelForm):
             # 'body': CKEditorWidget()
         }
 
+        labels = {
+            "title": "Main Title",
+            "body": "Description"
+        }
+
+        help_text = {
+            "title": "enter good title",
+            "body": "Enter full description"
+        }
+
+        error_messages = {
+            # "title": {
+            #     "max_length": "This title is too long",
+            #     "required": "The title field is required",
+            #     "unique": "Meta: The title field shall be unique"
+            # },
+            "pub_date": {
+                "required": "The body field is required"
+            }
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(BlogModelForm, self).__init__(*args, **kwargs)
+        # self.fields["title"].error_messages = {
+        #     "title": {
+        #         "max_length": "This title is too long",
+        #         "required": "The title field is required",
+        #         "unique": "Init:The title field shall be unique"
+        #     },
+        # }
+
+        for field in self.fields.values():
+            field.error_messages = {
+                "required": f"You know, {field.label} is required"
+            }
+
     def clean_title(self, *args, **kwargs):
         title = self.cleaned_data.get("title")
         return title
@@ -41,14 +77,14 @@ class BlogModelForm(forms.ModelForm):
         if "shit" in title:
             raise forms.ValidationError("mean words are not allowed")
 
-    def save(self, commit=True, *args, **kwargs):
-        obj = super(BlogModelForm, self).save(commit=False, *args, **kwargs)
+    # def save(self, commit=True, *args, **kwargs):
+    #     obj = super(BlogModelForm, self).save(commit=False, *args, **kwargs)
 
-        # PERFORM SOMETHING HERE
-        obj.title = "CHANGEED TITLE"
-        if commit == True:
-            obj.save()
-        return obj
+    #     # PERFORM SOMETHING HERE
+    #     obj.title = "CHANGEED TITLE"
+    #     if commit == True:
+    #         obj.save()
+    #     return obj
 
 
 # --------------------------------------------------------------------

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
+import json
 
 from django.views.generic import (
     View,
@@ -165,7 +166,8 @@ class BlogDetailView(LoginRequiredMixin, TemplateTitleMixin, DetailView):
 
 class MyBlogCreateView(LoginRequiredMixin, CreateView):
     form_class = BlogModelForm
-    template_name = 'forms.html'
+    # template_name = 'forms.html'
+    template_name = "blog/blog_form.html"
     # success_url = '/blogs'
 
     def get_initial(self):
@@ -180,6 +182,12 @@ class MyBlogCreateView(LoginRequiredMixin, CreateView):
 
     # This method can be used if form go invalid
     def form_invalid(self, form):
+        # print(form.errors.as_json())
+        # print(dir(form.errors))
+        for key, val in form.errors.items():
+            # print(key, ":", json.loads(val.as_json())[0]["message"])
+            # print(key, ":", val.as_data()[0].messages[0])
+            print(key, ":", val.as_text())
         return super().form_invalid(form)
 
 
