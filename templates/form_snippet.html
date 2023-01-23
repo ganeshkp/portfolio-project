@@ -1,0 +1,20 @@
+{% if form %}
+    <form method="{% if mthod %}{{ method }} {% else %} POST {% endif %}" action="{% if action %} {{action}} {% endif %}"> {% csrf_token %}
+        {% if as_p %}
+            {{ form.as_p }}
+        {% else %}
+            {{ form.as_ul }}
+        {% endif %}
+        <!-- {{ form.non_field_errors }}
+        <p><label for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label> {{ form.title }} 
+        {% if form.title.errors %}
+        <div style="color:red;">Errors with title are: {{ form.title.errors }} </div>
+        {% endif %}
+        </p>
+        <p><label for="{{ form.created_datetime.id_for_label }}">{{ form.created_datetime.label }}:</label> {{ form.created_datetime }}</p>
+        <p><label for="{{ form.pub_date.id_for_label }}">{{ form.pub_date.label }}:</label> {{ form.pub_date }}</p>
+        <p><label for="{{ form.body.id_for_label }}">{{ form.body.label }}:</label> {{ form.body }}</p> -->
+        <!-- {{ form.as_p }} -->
+        <input type="submit" value="Save"/>
+    </form>
+{% endif %}

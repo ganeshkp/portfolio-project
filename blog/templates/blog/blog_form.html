@@ -5,15 +5,7 @@
 
 <main role="main">
   <div class="container">
-    <form method="POST" action="."> {% csrf_token %}
-      {{ form.non_field_errors }}
-      <p><label for="{{ form.title.id_for_label }}">Title:</label> {{ form.title }} {{ form.title.errors }}</p>
-      <p><label for="{{ form.created_datetime.id_for_label }}">Created Date:</label> {{ form.created_datetime }}</p>
-      <p><label for="{{ form.pub_date.id_for_label }}">Published Date:</label> {{ form.pub_date }}</p>
-      <p><label for="{{ form.body.id_for_label }}">Description:</label> {{ form.body }}</p>
-      <!-- {{ form.as_p }} -->
-      <input type="submit" value="Save"/>
-    </form>
+    {% include "form_snippet.html" with form=form as_p=True %}
   </div>
 </main>
 
