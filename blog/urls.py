@@ -17,7 +17,5 @@ urlpatterns = [
     path('<int:pk>/delete/', views.BlogDeleteView.as_view(), name='blog_delete'),
 
     path('testform/', views.test_form_view, name="test_form"),
-
-
-
+    path('formset', views.formset_view, name='blog_formset'),
 ]

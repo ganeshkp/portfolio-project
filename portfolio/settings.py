@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'crispy_forms',
     'products',
 ]
 
@@ -143,3 +144,5 @@ except ImportError:
 # SECURE_HSTS_SECONDS=5
 # SECURE_HSTS_INCLUDE_SUBDOMAINS=True
 # SECURE_HSTS_PRELOAD=True
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

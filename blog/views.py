@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 import json
+from django.forms import formset_factory, modelformset_factory
 
 from django.views.generic import (
     View,
@@ -14,7 +15,7 @@ from django.views.generic import (
 
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.detail import SingleObjectMixin
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -23,6 +24,31 @@ from .models import Blog
 from .mixins import TemplateTitleMixin, QuerysetModelMixin, MyLoginRequiredMixin
 from django.views.generic.edit import FormMixin, ModelFormMixin
 
+
+def formset_view(request):
+    if request.user.is_authenticated:
+        BlogModelFormset = modelformset_factory(
+            Blog, form=BlogModelForm)  # extra=2 means create 2 additional empty forms
+        formset = BlogModelFormset(request.POST or None,
+                                   queryset=Blog.objects.filter(user=request.user))
+        if formset.is_valid():
+            # formset.save(commit=False)
+            for form in formset:
+                print(form.cleaned_data)
+                obj = form.save(commit=False)
+                if form.cleaned_data:
+                    #obj.title = "This title %s" %(obj.id)
+                    if not form.cleaned_data.get("publish"):
+                        obj.publish = timezone.now()
+                    obj.save()
+            # return redirect("/")
+                # print(form.cleaned_data)
+        context = {
+            "formset": formset
+        }
+        return render(request, "formset_view.html", context)
+    else:
+        raise Http404
 
 #********************************Function based views**********************************#
 # def allblogs(request):
