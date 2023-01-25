@@ -7,12 +7,13 @@
 
       <h1 class="text-center pt-3">Welcome to Ganesh's Blog</h1>
       <br />
+      {% include "blog/search-blog.html" %}
       <br />
-      <h2>Latest Posts</h2>
+      <h2>Latest Blogs</h2>
       <hr />
 
-      {% for blog in object_list.all %}
-      <a href="{% url 'blog_detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
+      {% for blog in object_list %}
+      <a href="{% url 'blog_detail' blog.id %}"><h3 {% if forloop.counter|divisibleby:2 %}style="color:red;"{%endif%}>{{forloop.counter}}. {{ blog.title }}</h3></a>
       {{ blog.pub_date_pretty }}
       <br />
       <!-- <img class="img-fluid" src="{{ blog.image.url }}" height=200 width=200 /> -->

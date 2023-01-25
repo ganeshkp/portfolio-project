@@ -3,6 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 import json
 from django.forms import formset_factory, modelformset_factory
+from django.db.models import Q
 
 from django.views.generic import (
     View,
@@ -28,7 +29,7 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 def formset_view(request):
     if request.user.is_authenticated:
         BlogModelFormset = modelformset_factory(
-            Blog, form=BlogModelForm)  # extra=2 means create 2 additional empty forms
+            Blog, form=BlogModelForm, extra=0)  # extra=2 means create 2 additional empty forms
         formset = BlogModelFormset(request.POST or None,
                                    queryset=Blog.objects.filter(user=request.user))
         if formset.is_valid():
@@ -118,7 +119,15 @@ class BlogListView(TemplateTitleMixin, QuerysetModelMixin, ListView):
         return super(BlogListView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+        # return self.model.objects.filter(user=self.request.user)
+        query = self.request.GET.get("q", None)
+        qs = self.model.objects.filter(user=self.request.user)
+        if query is not None:
+            qs = qs.filter(
+                Q(title__icontains=query) |
+                Q(body__icontains=query)
+            )
+        return qs
 
     # def get_queryset(self):
     #     # If no queryset variable mentioned, then this will be called
