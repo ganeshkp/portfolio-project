@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     'ckeditor',
     'crispy_forms',
     'products',
@@ -146,3 +148,20 @@ except ImportError:
 # SECURE_HSTS_PRELOAD=True
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale")
+]
+
+# debug celery
+CELERY_TASK_ALWAYS_EAGER = True
+# use this if you are on older versions of celery
+# CELERY_ALWAYS_EAGER = True
+
+# Celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

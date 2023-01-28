@@ -1,4 +1,8 @@
 <form method='GET' action='/blogs/'>
-    <input type='text' name='q' placeholder='Search'>
+    {% if search_text %}
+        <input type='text' name='q' placeholder='{{ search_text }}'>
+    {% else %}
+        <input type='text' name='q' placeholder='Search'>
+    {% endif %}
     <input type="submit" value="Search"/>
 </form>

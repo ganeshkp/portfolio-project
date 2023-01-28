@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 import json
 from django.forms import formset_factory, modelformset_factory
 from django.db.models import Q
+from .tasks import send_mail
 
 from django.views.generic import (
     View,
@@ -121,7 +122,10 @@ class BlogListView(TemplateTitleMixin, QuerysetModelMixin, ListView):
     def get_queryset(self):
         # return self.model.objects.filter(user=self.request.user)
         query = self.request.GET.get("q", None)
-        qs = self.model.objects.filter(user=self.request.user)
+        if self.request.user.pk:
+            qs = self.model.objects.filter(user=self.request.user)
+        else:
+            qs = self.model.objects.none()
         if query is not None:
             qs = qs.filter(
                 Q(title__icontains=query) |
@@ -213,6 +217,7 @@ class MyBlogCreateView(LoginRequiredMixin, CreateView):
         if self.request.user.is_authenticated:
             obj.user = self.request.user
         obj.save()
+        send_mail.delay("title", "content")
         return super().form_valid(form)
 
     # This method can be used if form go invalid
