@@ -11,20 +11,20 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'add-every-minute-contrab': {
-        'task': 'multiply_two_numbers',
-        'schedule': crontab(),
+        'task': 'send_blog_mail',
+        'schedule': crontab(minute='*/5'),  # every 5 minutes
         'args': (16, 16),
     },
-    'add-every-5-seconds': {
-        'task': 'multiply_two_numbers',
-        'schedule': 5.0,  # in seconds
-        'args': (16, 16)
-    },
-    'add-every-30-seconds': {
-        'task': 'tasks.add',
-        'schedule': 30.0,
-        'args': (16, 16)
-    },
+    # 'add-every-5-seconds': {
+    #     'task': 'multiply_two_numbers',
+    #     'schedule': 5.0,  # in seconds
+    #     'args': (16, 16)
+    # },
+    # 'add-every-30-seconds': {
+    #     'task': 'tasks.add',
+    #     'schedule': 30.0,
+    #     'args': (16, 16)
+    # },
 }
 
 

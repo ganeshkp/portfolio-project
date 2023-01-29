@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 import json
 from django.forms import formset_factory, modelformset_factory
 from django.db.models import Q
-from .tasks import send_mail
+from .tasks import send_blog_mail
+
 
 from django.views.generic import (
     View,
@@ -217,7 +218,7 @@ class MyBlogCreateView(LoginRequiredMixin, CreateView):
         if self.request.user.is_authenticated:
             obj.user = self.request.user
         obj.save()
-        send_mail.delay("title", "content")
+        send_blog_mail.delay("ganeshkp3006@gmail.com", "This is content")
         return super().form_valid(form)
 
     # This method can be used if form go invalid
