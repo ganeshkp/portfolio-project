@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'products',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,5 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+AUTH_USER_MODEL = 'accounts.MyUser'
