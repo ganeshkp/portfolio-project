@@ -218,7 +218,7 @@ class MyBlogCreateView(LoginRequiredMixin, CreateView):
         if self.request.user.is_authenticated:
             obj.user = self.request.user
         obj.save()
-        send_blog_mail.delay("ganeshkp3006@gmail.com", "This is content")
+        # send_blog_mail.delay("ganeshkp3006@gmail.com", "This is content")
         return super().form_valid(form)
 
     # This method can be used if form go invalid
