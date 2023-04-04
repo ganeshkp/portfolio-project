@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
   <main role="main">
     <div class="container">
 
-      <h1 class="text-center pt-3">Welcome to Ganesh's Blog</h1>
+      <h1 class="text-center pt-3">{% trans "Welcome to Ganesh's Blog" %}</h1>
       <br />
       {% include "blog/search-blog.html"  with search_text="search your blog" %}
       <br />

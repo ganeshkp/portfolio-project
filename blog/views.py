@@ -5,6 +5,7 @@ import json
 from django.forms import formset_factory, modelformset_factory
 from django.db.models import Q
 from .tasks import send_blog_mail
+from django.utils.translation import gettext as _
 
 
 from django.views.generic import (
@@ -110,6 +111,7 @@ class BlogListView(TemplateTitleMixin, QuerysetModelMixin, ListView):
     title = "Blog List"
 
     def get_context_data(self, *args, **kwargs):
+        output = _("Welcome to my site here")
         context = super().get_context_data(*args, **kwargs)
         context['now'] = timezone.now()
         # context["title"] = "Product List Title1"

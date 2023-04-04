@@ -151,7 +151,7 @@ except ImportError:
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "locale")
+    os.path.join(BASE_DIR, 'locale')
 ]
 
 # debug celery
