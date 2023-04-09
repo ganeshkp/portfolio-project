@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'ckeditor',
     'crispy_forms',
+    'crispy_bootstrap5',  # Forgetting this was probably your error
     'products',
     'accounts',
 ]
@@ -148,7 +149,8 @@ except ImportError:
 # SECURE_HSTS_INCLUDE_SUBDOMAINS=True
 # SECURE_HSTS_PRELOAD=True
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
