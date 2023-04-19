@@ -12,3 +12,5 @@ local_settings.py
 /static
 # .vscode
 *.rdb
+#env files
+*.env

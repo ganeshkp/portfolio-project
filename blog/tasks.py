@@ -25,10 +25,12 @@ from django.core.mail import send_mail
 def send_blog_mail(email_address="ganeshkp3006@gmail.com", message=""):
     """Sends an email when the feedback form has been submitted."""
     sleep(20)  # Simulate expensive operation(s) that freeze Django
-    send_mail(
-        "Your Feedback",
-        f"\t{message}\n\nThank you!",
-        "support@example.com",
-        [email_address],
-        fail_silently=False,
-    )
+    print("INSIDE: send_blog_mail")
+    # send_mail(
+    #     subject="Your Feedback",
+    #     message=f"\t{message}\n\nThank you!",
+    #     from_email="support@example.com",
+    #     recipient_list=[email_address],
+    #     fail_silently=False
+    # )
+    # print("EMAIL SENT")
