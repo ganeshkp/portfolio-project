@@ -28,33 +28,37 @@
           <div class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
               <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357" target="_blank">LinkedIn</a>
+              <a class="nav-item nav-link" href="https://twitter.com/ganeshkp11" target="_blank">Twitter</a>
               <a class="nav-item nav-link" href="https://github.com/ganeshkp" target="_blank">GitHub</a>
               <!-- <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a> -->
               <a class="nav-item nav-link" href="{% url 'blog_list' %}">Blogs</a>
-              <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              <a class="nav-item nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+              <!--<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>-->
 
             {% else %}
               <a class="nav-item nav-link" href="https://www.linkedin.com/in/ganeshkumar-patil-332a5357" target="_blank">LinkedIn</a>
+              <a class="nav-item nav-link" href="https://twitter.com/ganeshkp11" target="_blank">Twitter</a>
               <a class="nav-item nav-link" href="https://github.com/ganeshkp" target="_blank">GitHub</a>
               <!-- <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a> -->
               <a class="nav-item nav-link" href="{% url 'blog_list' %}">Blogs</a>
-              <a class='nav-item nav-link' href="{% url 'login' %}" >Login</a>
+              <a class="nav-item nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+              <!--<a class='nav-item nav-link' href="{% url 'login' %}" >Login</a>-->
             {% endif %}
-            
+
           </div>
         </div>
       </nav>
     </header>
-  
+
     {% block content %}
     {% endblock %}
-  
+
     <footer class="text-muted">
       <div class="container text-center">
         <p>© Ganeshkumar Patil {% now "Y" %}</p>
         </div>
     </footer>
-  
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -63,4 +67,3 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
-  

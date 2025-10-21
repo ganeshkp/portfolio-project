@@ -23,7 +23,7 @@
           {% for job in jobs %}
             <div class="col-md-6">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" height=100 src="{{ job.image.url }}" />
+                <img src="{{ job.image.url }}" class="w-96 h-96 object-cover rounded-lg" alt="Job image">
                 <div class="card-body">
                   <p class="card-text">{{ job.summary | safe }}</p>
                 </div>

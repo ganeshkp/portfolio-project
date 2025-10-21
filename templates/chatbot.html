@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .chatbot-fullscreen {
+      position: fixed;
+      top: 56px; /* height of navbar */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: calc(100vh - 56px); /* full viewport minus navbar */
+      border: none;
+      border-radius: 0;
+      z-index: 1000;
+    }
+  </style>
+
+  <iframe
+    src="https://ganeshkp-chatbot.hf.space"
+    class="chatbot-fullscreen"
+  ></iframe>
+{% endblock %}
